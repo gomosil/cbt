@@ -99,6 +99,10 @@ const RouteWithSidebar = ({ component: Component, ...rest }) => {
   );
 };
 
+/**
+ * A component that checks if the user is logged in using cookie.
+ * @returns Redirect
+ */
 export const CheckLogin = () => {
   const [cookies] = useCookies(['credentials']);
   try {

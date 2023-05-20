@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { Redirect } from "react-router-dom";
 
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +8,7 @@ import { faIdBadge, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Form, Button, Container, InputGroup, Alert } from '@themesberg/react-bootstrap';
 
 import BgImage from "../assets/img/illustrations/signin.svg";
+import { Routes } from "../routes";
 
 /**
  * The login component for logging in to the system.
@@ -20,6 +22,17 @@ const LoginComponent = () => {
   const [showLoginSuccess, setShowLoginSuccess] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(['credentials']);
 
+  // If user logged in, redirect to Dashboard.
+  try {
+    if (cookies.credentials.isLoggedIn === true) {
+      return(<Redirect to={Routes.DashboardOverview.path} />);
+    } else {
+      ;
+    }
+  } catch (TypeError) { // Not logged in.
+    ;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -30,6 +43,7 @@ const LoginComponent = () => {
     };
   
     try {
+      // @TODO: This shall be changed to real backend IP
       const response = await axios.post('http://172.25.244.37:5001/login', data);
   
       // Handle response if needed
@@ -42,6 +56,7 @@ const LoginComponent = () => {
         setShowLoginSuccess(true);
         setShowLoginFailure(false);
 
+        // Store Cookie
         const credentials = {
           username: 'test',
           isLoggedIn: true,
@@ -114,9 +129,12 @@ const LoginComponent = () => {
                     </Alert>
                   )}
                   {showLoginSuccess && (
+                    <>
                     <Alert variant="success" className="mt-3">
                       로그인에 성공했습니다.
                     </Alert>
+                      <Redirect to={Routes.DashboardOverview.path} />
+                    </>
                   )}
                 </Form>
               </div>
