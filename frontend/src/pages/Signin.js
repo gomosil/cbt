@@ -20,7 +20,7 @@ const LoginComponent = () => {
   const [password, setPassword] = useState('');
   const [showLoginFailure, setShowLoginFailure] = useState(false);
   const [showLoginSuccess, setShowLoginSuccess] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['credentials']);
+  const [cookies, setCookie] = useCookies(['credentials']);
 
   // If user logged in, redirect to Dashboard.
   try {
@@ -58,7 +58,7 @@ const LoginComponent = () => {
 
         // Store Cookie
         const credentials = {
-          username: 'test',
+          id: 'test',
           isLoggedIn: true,
         };
         setCookie('credentials', credentials, { path: '/' });
