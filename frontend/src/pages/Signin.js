@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
+
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faIdBadge, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Form, Button, Container, InputGroup, Alert } from '@themesberg/react-bootstrap';
 
-import BgImage from "../../assets/img/illustrations/signin.svg";
-
+import BgImage from "../assets/img/illustrations/signin.svg";
 
 /**
  * The login component for logging in to the system.
@@ -17,6 +18,7 @@ const LoginComponent = () => {
   const [password, setPassword] = useState('');
   const [showLoginFailure, setShowLoginFailure] = useState(false);
   const [showLoginSuccess, setShowLoginSuccess] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['credentials']);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +41,13 @@ const LoginComponent = () => {
         // Perform actions for successful login
         setShowLoginSuccess(true);
         setShowLoginFailure(false);
+
+        const credentials = {
+          username: 'test',
+          isLoggedIn: true,
+        };
+        setCookie('credentials', credentials, { path: '/' });
+
       } else {
         // Show alert for login failure
         setShowLoginFailure(true);

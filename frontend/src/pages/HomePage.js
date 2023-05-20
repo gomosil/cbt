@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Routes } from "../routes";
+import { useCookies } from 'react-cookie';
 
 // pages
 import Presentation from "./Presentation";
@@ -9,7 +10,7 @@ import DashboardOverview from "./dashboard/DashboardOverview";
 import Transactions from "./Transactions";
 import Settings from "./Settings";
 import BootstrapTables from "./tables/BootstrapTables";
-import Signin from "./examples/Signin";
+import Signin from "./Signin";
 import Signup from "./examples/Signup";
 import ForgotPassword from "./examples/ForgotPassword";
 import ResetPassword from "./examples/ResetPassword";
@@ -97,6 +98,16 @@ const RouteWithSidebar = ({ component: Component, ...rest }) => {
     />
   );
 };
+
+export const CheckLogin = () => {
+  const [cookies] = useCookies(['credentials']);
+  if (cookies.isLoggedIn == undefined) {
+    console.log("not logged in, redirecting to login page");
+    return(<Redirect to={Routes.Signin.path} />);
+  } else {
+    return("");
+  }
+}
 
 export default () => (
   <Switch>
