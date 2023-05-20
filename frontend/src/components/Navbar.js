@@ -12,7 +12,7 @@ import Profile3 from "../assets/img/team/profile-picture-3.jpg";
 
 
 export default () => {
-  const [cookies, removeCookie] = useCookies(['credentials']);
+  const [cookies, setCookie] = useCookies(['credentials']);
   const [professorName, setProfessorName] = useState('');
 
   console.log(cookies)
@@ -44,7 +44,11 @@ export default () => {
   const handleSignout = () => {
     console.log("HANDLE SIGNOUT")
     // Remove the cookie
-    removeCookie('credentials');
+    const credentials = {
+      id: 'test',
+      isLoggedIn: false,
+    };
+    setCookie('credentials', credentials, { path: '/' });
     // Refresh the page
     window.location.href = "/login";
   };
@@ -67,7 +71,7 @@ export default () => {
               </Dropdown.Toggle>
               <Dropdown.Menu className="user-dropdown dropdown-menu-right mt-2">
                 <Dropdown.Item className="fw-bold" onClick={handleSignout}>
-                  <FontAwesomeIcon icon={faSignOutAlt} className="text-danger me-2" /> Signout
+                  <FontAwesomeIcon icon={faSignOutAlt} className="text-danger me-2" /> 로그아웃
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

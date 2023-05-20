@@ -34,22 +34,22 @@ export default (props) => {
           <Col xs={12} lg={6}>
             <ul className="list-inline list-group-flush list-group-borderless text-center text-xl-right mb-0">
               <li className="list-inline-item px-0 px-sm-2">
-                <Card.Link href="https://themesberg.com/about" target="_blank">
+                <Card.Link href="https://github.com/gomosil/cbt/" target="_blank">
                   <FontAwesomeIcon icon={faBook}></FontAwesomeIcon> 소개
                 </Card.Link>
               </li>
               <li className="list-inline-item px-0 px-sm-2">
-                <Card.Link href="https://themesberg.com/themes" target="_blank">
+                <Card.Link href="https://github.com/gomosil/cbt/" target="_blank">
                 <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon> GitHub
                 </Card.Link>
               </li>
               <li className="list-inline-item px-0 px-sm-2">
-                <Card.Link href="https://themesberg.com/blog" target="_blank">
+                <Card.Link href="https://github.com/gomosil/cbt/issues" target="_blank">
                 <FontAwesomeIcon icon={faBug}></FontAwesomeIcon> 버그 제보
                 </Card.Link>
               </li>
               <li className="list-inline-item px-0 px-sm-2">
-                <Card.Link href="https://themesberg.com/contact" target="_blank">
+                <Card.Link href="https://github.com/gomosil/cbt/discussion" target="_blank">
                 <FontAwesomeIcon icon={faPhone}></FontAwesomeIcon> 문의
                 </Card.Link>
               </li>
