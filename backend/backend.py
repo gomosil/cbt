@@ -1,7 +1,9 @@
 import os
 from flask import Flask, flash, request, redirect, url_for, Response
-app = Flask(__name__)
+from flask_cors import CORS
 
+app = Flask(__name__)
+CORS(app)
 
 @app.route('/login', methods=['POST'])
 def login():
