@@ -1,33 +1,54 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faIdBadge, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Form, Button, Container, InputGroup } from '@themesberg/react-bootstrap';
+import { Col, Row, Form, Button, Container, InputGroup, Alert } from '@themesberg/react-bootstrap';
 
 import BgImage from "../../assets/img/illustrations/signin.svg";
 
 
-const YourComponent = () => {
+/**
+ * The login component for logging in to the system.
+ * This will use backend /login endpoint.
+ * @returns A component for Login Page
+ */
+const LoginComponent = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const [showLoginFailure, setShowLoginFailure] = useState(false);
+  const [showLoginSuccess, setShowLoginSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     // Create JSON object with id and password
     const data = {
       id: id,
       password: password,
     };
-
+  
     try {
       const response = await axios.post('http://172.25.244.37:5001/login', data);
+  
       // Handle response if needed
       console.log(response);
+  
+      // Handle success case
+      // Assuming response status 200 is considered a successful login
+      if (response.status === 200) {
+        // Perform actions for successful login
+        setShowLoginSuccess(true);
+        setShowLoginFailure(false);
+      } else {
+        // Show alert for login failure
+        setShowLoginFailure(true);
+        setShowLoginSuccess(false);
+      }
     } catch (error) {
-      // Handle error if needed
+      // Handle error
       console.error(error);
+      // Show alert for login failure
+      setShowLoginFailure(true);
     }
   };
 
@@ -39,11 +60,11 @@ const YourComponent = () => {
             <Col xs={12} className="d-flex align-items-center justify-content-center">
               <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 fmxw-500">
                 <div className="text-center text-md-center mb-4 mt-md-0">
-                  <h3 className="mb-0">Dankook University CBT Login</h3>
+                  <h3 className="mb-0">출튀 방지 시스템 로그인</h3>
                 </div>
                 <Form className="mt-4" onSubmit={handleSubmit}>
                   <Form.Group id="text" className="mb-4">
-                    <Form.Label>Professor ID</Form.Label>
+                    <Form.Label>교번</Form.Label>
                     <InputGroup>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faIdBadge} />
@@ -60,7 +81,7 @@ const YourComponent = () => {
                   </Form.Group>
                   <Form.Group>
                     <Form.Group id="password" className="mb-4">
-                      <Form.Label>Password</Form.Label>
+                      <Form.Label>비밀번호</Form.Label>
                       <InputGroup>
                         <InputGroup.Text>
                           <FontAwesomeIcon icon={faUnlockAlt} />
@@ -76,8 +97,18 @@ const YourComponent = () => {
                     </Form.Group>
                   </Form.Group>
                   <Button variant="primary" type="submit" className="w-100">
-                    Sign in
+                    로그인
                   </Button>
+                  {showLoginFailure && (
+                    <Alert variant="danger" className="mt-3">
+                      로그인 정보가 일치하지 않습니다.
+                    </Alert>
+                  )}
+                  {showLoginSuccess && (
+                    <Alert variant="success" className="mt-3">
+                      로그인에 성공했습니다.
+                    </Alert>
+                  )}
                 </Form>
               </div>
             </Col>
@@ -88,4 +119,4 @@ const YourComponent = () => {
   );
 };
 
-export default YourComponent;
+export default LoginComponent;
