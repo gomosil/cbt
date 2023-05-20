@@ -47,7 +47,7 @@ const LoginComponent = () => {
           isLoggedIn: true,
         };
         setCookie('credentials', credentials, { path: '/' });
-
+        console.log(cookies)
       } else {
         // Show alert for login failure
         setShowLoginFailure(true);

@@ -101,11 +101,16 @@ const RouteWithSidebar = ({ component: Component, ...rest }) => {
 
 export const CheckLogin = () => {
   const [cookies] = useCookies(['credentials']);
-  if (cookies.isLoggedIn == undefined) {
+  try {
+    if (cookies.credentials.isLoggedIn === undefined) {
+      console.log("not logged in, redirecting to login page");
+      return(<Redirect to={Routes.Signin.path} />);
+    } else {
+      return("");
+    }
+  } catch (TypeError) {
     console.log("not logged in, redirecting to login page");
     return(<Redirect to={Routes.Signin.path} />);
-  } else {
-    return("");
   }
 }
 
