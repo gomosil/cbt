@@ -1,18 +1,36 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { Routes } from "../routes";
 
-import './css/RightSlide.css'; // import the styles.css file
-import { LectureInfo } from './LectureTable'; // import the styles.css file
-import { Button, Row, Col } from '@themesberg/react-bootstrap';
+import "./css/RightSlide.css";
+import { LectureInfo } from "./LectureTable";
+import { Button, Row, Col } from "@themesberg/react-bootstrap";
 
-const ButtonsComponent = () => {
-    return (
-      <Row>
-        <Col>
-          <Button variant="primary" className="w-100">중간 출석 QR 생성</Button>
-        </Col>
-      </Row>
-    );
+const ButtonsComponent = (props) => {
+  const { classID, lectureName } = props;
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push({
+      pathname: Routes.MidAttendenceAdmin.path,
+      state: {
+        classID: classID,
+        lectureName: lectureName,
+      },
+    });
   };
+
+  return (
+    <Row>
+      <Col>
+        <Button variant="primary" className="w-100" onClick={handleClick}>
+          중간 출석 QR 생성
+        </Button>
+      </Col>
+    </Row>
+  );
+};
+
 
 /**
  * A function that generates a white rounded page sliding out from the right side.
@@ -22,6 +40,9 @@ const ButtonsComponent = () => {
 export const RightSlidePage = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { clickButton, classID, lectureName } = props;
+
+    console.log("NMAME<E<E<E<E: "+ lectureName)
+
 
     const openSpace = () => setIsOpen(true);
     const closeSpace = () => setIsOpen(false);
@@ -56,7 +77,7 @@ export const RightSlidePage = (props) => {
                     <br></br>
                     <LectureInfo classID={classID} />
                     <br></br>
-                    <ButtonsComponent></ButtonsComponent>
+                    <ButtonsComponent classID={classID} lectureName={lectureName}></ButtonsComponent>
                 </div>
             </div>
         </div>

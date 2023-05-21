@@ -32,7 +32,7 @@ const ButtonsComponent = ({ extendTimer, stopTimer, isTimerRunning }) => {
 export const QRGenerator = (props) => {
   const [imageUrl, setImageUrl] = useState('');
   const [isTimerRunning, setIsTimerRunning] = useState(true);
-  const [remainingTime, setRemainingTime] = useState(12); // 60 seconds = 1 minute
+  const [remainingTime, setRemainingTime] = useState(60); // 60 seconds = 1 minute
   const [showPopup, setShowPopup] = useState(false);
   const [redirectToDashboard, setRedirectToDashboard] = useState(false);
 
