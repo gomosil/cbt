@@ -10,12 +10,6 @@ const ButtonsComponent = () => {
         <Col>
           <Button variant="primary" className="w-100">중간 출석 QR 생성</Button>
         </Col>
-        <Col>
-          <Button variant="success" className="w-100">중간 출석 시작</Button>
-        </Col>
-        <Col>
-          <Button variant="danger" className="w-100">중간 출석 마감</Button>
-        </Col>
       </Row>
     );
   };

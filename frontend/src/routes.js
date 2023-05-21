@@ -6,4 +6,5 @@ export const Routes = {
     Settings: { path: "/settings" },
     Signin: { path: "/login" },
     NotFound: { path: "/404" },
+    MidAttendenceAdmin: { path: "/mid_attendence"}
 };

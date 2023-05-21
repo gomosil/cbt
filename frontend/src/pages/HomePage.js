@@ -6,6 +6,8 @@ import { useCookies } from 'react-cookie';
 // pages
 import DashboardOverview from "./DashboardOverview";
 import Signin from "./SignIn";
+import MidAttendenceAdmin from './MidAttendenceAdmin';
+
 import NotFoundPage from "./NotFound.js";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
@@ -87,6 +89,7 @@ export default () => (
 
     {/* pages */}
     <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview} />
+    <RouteWithSidebar exact path={Routes.MidAttendenceAdmin.path} component={MidAttendenceAdmin} />
 
     <Redirect to={Routes.NotFound.path} />
   </Switch>
