@@ -1,7 +1,10 @@
-import os
-from flask import Flask, flash, request, redirect, url_for, Response
+import string
+import random
+from flask import Flask, request, send_file, Response
 from flask_cors import CORS
 import json
+import qrcode
+
 
 app = Flask(__name__)
 CORS(app)
@@ -148,6 +151,24 @@ def lecture_details():
             }]
 
     return Response(json.dumps(data), status=200)
+
+
+def generate_random_url():
+    length = 10
+    characters = string.ascii_letters + string.digits
+    random_url = ''.join(random.choice(characters) for _ in range(length))
+    return random_url
+
+@app.route('/qr_code')
+def generate_qr_code():
+    url = generate_random_url()
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(url)
+    qr.make(fit=True)
+    qr_image = qr.make_image(fill_color="black", back_color="white")
+    image_path = f'{url}.png'
+    qr_image.save(image_path)
+    return send_file(image_path, mimetype='image/png')
 
 
 if __name__ == "__main__":
