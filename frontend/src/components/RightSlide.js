@@ -27,7 +27,7 @@ const ButtonsComponent = () => {
  */
 export const RightSlidePage = (props) => {
     const [isOpen, setIsOpen] = useState(false);
-    const { clickButton, content, classID, lectureName } = props;
+    const { clickButton, classID, lectureName } = props;
 
     const openSpace = () => setIsOpen(true);
     const closeSpace = () => setIsOpen(false);
