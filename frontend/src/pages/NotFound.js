@@ -21,15 +21,14 @@ export default () => {
                   <Image src={NotFoundImage} className="img-fluid w-75" />
                 </Card.Link>
                 <h1 className="text-primary mt-5">
-                  Page not <span className="fw-bolder">found</span>
+                  존재하지 않거나 만료된 페이지입니다.
                 </h1>
                 <p className="lead my-4">
-                  Oops! Looks like you followed a bad link. If you think this is a
-                  problem with us, please tell us.
+                  중간 출석 페이지의 경우 출석 시간이 만료되었습니다.
             </p>
                 <Button as={Link} variant="primary" className="animate-hover" to={Routes.DashboardOverview.path}>
                   <FontAwesomeIcon icon={faChevronLeft} className="animate-left-3 me-3 ms-2" />
-                  Go back home
+                  대시보드로 돌아가기
                 </Button>
               </div>
             </Col>
