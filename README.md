@@ -2,10 +2,10 @@
 고급모바일실험 "출튀 방지" 시스템 관련 레포지토리입니다
 
 ## 참여자 (가나다순)
-- **32190984 김이수**: PM + CI/CD + Infra
-- **32171967 백광렬**: Backend
-- **32212342 신우재**: Frontend
-- **32182554 양대한**: Backend
+- **32190984 김이수**: PM + CI/CD + Infra + Frontend [@isu-kim](https://github.com/isu-kim)
+- **32171967 백광렬**: Backend [@baeklight](https://github.com/baeklight)
+- **32212342 신우재**: Frontend [@swj03](https://github.com/swj03)
+- **32182554 양대한**: Backend [@Yangdaehan](https://github.com/Yangdaehan)
 
 ## 규칙
 ### 1. main branch commit 금지
