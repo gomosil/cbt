@@ -159,17 +159,43 @@ def generate_random_url():
     random_url = ''.join(random.choice(characters) for _ in range(length))
     return random_url
 
-@app.route('/qr_code')
+
+@app.route('/qr_code',  methods=['GET'])
 def generate_qr_code():
-    url = generate_random_url()
+    #url = generate_random_url()
+    url = "http://172.25.244.37:3000/student/foo-bar"
     qr = qrcode.QRCode(version=1, box_size=10, border=5)
     qr.add_data(url)
     qr.make(fit=True)
     qr_image = qr.make_image(fill_color="black", back_color="white")
-    image_path = f'{url}.png'
+    image_path = 'url.png'
     qr_image.save(image_path)
     return send_file(image_path, mimetype='image/png')
 
+
+@app.route('/lecture_name',  methods=['GET'])
+def lecture_name():
+    return Response(json.dumps({'name': "고급모바일실험"}), status=200)
+
+@app.route('/lecture_attend', methods=['POST'])
+def lecture_attend():
+    """
+    A function that deals with endpoint /lecture_attend (POST)
+    Since this is a testing function, this will return following student as valid
+    ID: test / ID: 1234
+    If the student was correct, this will return status code 200
+    If the student was not correct, this will return status code 403.
+    """
+    data = request.get_json()
+    name = data.get('name')
+    student_id = data.get('studentid')
+    print(data)
+
+    # Check Credentials, but this needs to be implemented in the future!!
+    if name == "test" and student_id == "1234":
+        return Response(status=200)
+    else:
+        return Response(status=403)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001)
