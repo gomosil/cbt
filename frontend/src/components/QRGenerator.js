@@ -114,8 +114,8 @@ export const QRGenerator = (props) => {
 
       <Modal as={Modal.Dialog} centered show={showPopup} onHide={handleClosePopup}>
         <Modal.Body>
-          <h5 className="text-center">타임아웃!</h5>
-          <p className="text-center">타이머가 종료되었습니다.</p>
+          <h5 className="text-center">중간 출석 종료!</h5>
+          <p className="text-center">중간 출석이 종료되었습니다.</p>
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <Button variant="secondary" onClick={handleClosePopup}>

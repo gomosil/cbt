@@ -1,4 +1,3 @@
-
 export const Routes = {
     // pages
     Presentation: { path: "/" },
@@ -6,5 +5,6 @@ export const Routes = {
     Settings: { path: "/settings" },
     Signin: { path: "/login" },
     NotFound: { path: "/404" },
-    MidAttendenceAdmin: { path: "/mid_attendence"}
+    MidAttendenceAdmin: { path: "/mid_attendence"},
+    MidAttendenceStudent: { path: "/student/:lectureSlug"}
 };
