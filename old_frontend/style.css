@@ -1,0 +1,56 @@
+.header {
+    height: 90px;
+    margin: 0 auto;
+    color: white;
+    background: blue;
+}
+
+.header h1{
+    float: left;
+    padding-top: 5px;
+    margin-right: 15px;
+}
+
+.header .menu{
+    float: right;
+}
+
+.header .menu li{
+    float: right;
+    margin-left: 90px;
+    line-height: 90px;
+}
+
+.header .menu li a:hover{
+    color: red;
+}
+
+.attendance {
+    position: fixed;
+    left: 940px;
+    top: 214px;
+    background-color: blue;
+    padding: 10px 27px;
+    border: none;
+    color: white;
+}
+
+.attendance2 {
+    position: fixed;
+    left: 940px;
+    top: 254px;
+    background-color: blue;
+    padding: 10px 27px;
+    border: none;
+    color: white;
+}
+
+.attendance3 {
+    position: fixed;
+    left: 940px;
+    top: 294px;
+    background-color: blue;
+    padding: 10px 27px;
+    border: none;
+    color: white;
+}

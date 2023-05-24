@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>로그인</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="styles.css">
+		<style>
+			body { padding: 0px; margin: 0px; }
+
+			#divPosition {
+				background-color: white;
+				border: 1px solid #5D5D5D;
+				position: absolute;
+				height: 600px;
+				width: 850px;
+				margin: -280px 500px 500px -750px;
+				top: 50%;
+				left: 50%;
+				padding: 50px 0;
+				text-align: left;
+				justify-content: center;
+			}
+
+			.bottom_menu { position: fixed; bottom: 0px; left: 0px; width: 100%; height: 150px; z-index:100; border-top: 1px solid black; background-color: white }
+		    .bottom_menu > div { float: right; width: 20%; height: 100%;  padding-top: 13px; }
+
+	</style>
+	</head>
+
+	<div class="header">
+		<h1><a href="#"><img src="login_logo.png"></a></h1>
+		<div class="menu">
+			<ul>
+				<li><a href="#"><font color="white">단국대학교 소개</font></a></li>
+				<li><a href="#"><font color="white">행정서비스</font></a></li>
+				<li><a href="#"><font color="white">DKU 뉴스</font></a></li>
+				<li><a href="#"><font color="white">오시는 길</font></a></li>
+			</ul>
+		</div>
+	</div>
+	<body>
+		<div id="divPosition">
+			<h2>Login</h2>
+			<form method="get" action="#" id="login-form">
+				<input type="text" name="userName" placeholder="Email">
+				<br>
+				<input type="password" name="userPassword" placeholder="Password">
+				<br>
+				<label for="remember-check">
+					<br>
+					<input type="checkbox" id="remember-check">아이디 저장하기
+					<br>
+				</label>
+				<input type="submit" value="Login">
+			</form>
+		</div>
+
+		<div class="bottom_menu">
+			<h3>단국대학교 대표 전화번호 : 031-8005-2114</h3>
+			<br>
+			<h3>죽전캠퍼스 경기도 용인시 수지구 죽전로 152 (우)16890 / 
+				천안캠퍼스 충남 천안시 동남구 단대로 119 (우)31116</h3>	
+		</div>
+	</body>
+</html>
