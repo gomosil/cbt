@@ -1,0 +1,85 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+
+.header {
+    height: 90px;
+    margin: 0 auto;
+    color: white;
+    background: blue;
+}
+
+.header h1{
+    float: left;
+    padding-top: 28px;
+    margin-right: 25px;
+}
+
+.header .menu{
+    float: left;
+}
+
+.header .menu li{
+    float: left;
+    margin-left: 40px;
+    line-height: 90px;
+}
+
+.header .menu li a:hover{
+    color: red;
+}
+
+body {
+    padding: 0px;
+    margin: 0;
+    background-color: rgba(223, 222, 222, 0.918);
+}
+
+
+
+#login-form > input {
+    width: 50%;
+    height: 48%;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    background-color: F8F8F8;
+}
+
+#login-form > input::placeholder{
+    color: #D2D2D2;
+}
+
+#login-form > input[type="submit"]{
+    color: #fff;
+    font-size: 25px;
+    background-color: #6A24FE;
+    margin-top: 20px;
+}
+
+#login-form > input[type="checkbox"]{
+    display: none;
+    margin: 100px 0px 0px 100px;
+}
+
+#login-form > label{
+    color: #999999;
+}
+
+
+.bottom_menu h3{
+    font-size: 13px;
+    padding-bottom: 15px;
+}
+
+.bottom_menu {
+    text-align: center;
+}
+
+
+
+
