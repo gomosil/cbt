@@ -51,7 +51,7 @@ lecture =[
 ]
 
 # lecture insert
-db.users.insert_many(lecture)
+db.lectures.insert_many(lecture)
 
 
 # students
