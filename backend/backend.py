@@ -11,7 +11,6 @@ CORS(app)
 
 db = DB()
 
-
 @app.route('/login', methods=['POST'])
 def login():
     """
@@ -21,21 +20,22 @@ def login():
     If the credentials were correct, this will return status code 200
     If the credentials were not correct, this will return status code 403.
     """
+    # Retrieve JSON and out each values.
     data = request.get_json()
     professor_id = data.get('id')
     professor_password = data.get('password')
 
-    try:
+    try: # Try resolving password from DB.
         password = db.get_password(professor_id)
-        if professor_password == password:
+        if str(professor_password) == str(password):
             return Response(status=200)
         else:
             return Response(status=403)
 
-    except TypeError:
-
+    except TypeError: # When DB failed to look for professor password.
         return Response(status=403)
     
+
 @app.route('/professor_info', methods=['GET'])
 def professor_info():
     """

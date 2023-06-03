@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 # Retrieve environment variables for containers.
 server_name = os.getenv("MONGO_DB_URL")
-server_port = os.getenv("MONGO_DB_PORT")
+server_port = int(os.getenv("MONGO_DB_PORT"))
 
 # Connect to DB and make collection named applications.
 client = MongoClient(server_name, server_port)
