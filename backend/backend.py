@@ -66,81 +66,21 @@ def lecture_list():
         response = []
         return Response(json.dumps(response), status=200)
 
-@app.route('/lecture_details', methods=['GET'])
+@app.route('/lecture_details', methods=['POST'])
 def lecture_details():
     """
     A function that deals with endpoint /lecture_students (GET)
     Since this is a testing function, this will return random data.
     """
-    data = [
-        {
-            "student_name": "강형철",
-            "student_id": "32####03",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "김민주",
-            "student_id": "32####71",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "김수진",
-            "student_id": "32####99",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "김이수",
-            "student_id": "32####84",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "김준형",
-            "student_id": "32####97",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "김지용",
-            "student_id": "32####88",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "김지훈",
-            "student_id": "32####56",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "나윤진",
-            "student_id": "32####83",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "덜거르마",
-            "student_id": "32####25",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "마이클",
-            "student_id": "32####39",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        },
-        {
-            "student_name": "무하마드",
-            "student_id": "32####93",
-            "department": "모바일시스템공학과",
-            "attendance": 1
-        }]
-
-    return Response(json.dumps(data), status=200)
+    
+    data = request.get_json()
+    lecture_id = data.get('lecture_id')
+    try:  # Try retrieving data from DB.
+        student_list = db.get_lecture_details(lecture_id)
+        return Response(json.dumps(student_list), status=200)
+    except KeyError:  # If the lecture ID was not found in db
+        response = []
+        return Response(json.dumps(response), status=200)
 
 
 def generate_random_url():

@@ -378,4 +378,4 @@ student = [
     }
 ]
 
-db.users.insert_many(student)
+db.students.insert_many(student)

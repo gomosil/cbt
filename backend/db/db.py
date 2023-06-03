@@ -30,6 +30,7 @@ class DB:
     def get_professor_lecture_list(self, professor_id):
         lecture_ids = self.db.users.find_one({'id': professor_id})['lectures']
         total_data = []
+
         for lecture_id in lecture_ids:
             lec = self.db.lectures.find_one({'lecture_id': lecture_id})
             data = {
@@ -41,6 +42,26 @@ class DB:
                 }
             total_data.append(data)
         return total_data
+
+    def get_lecture_details(self, lecture_id):
+        lecture = self.db.lectures.find_one({'lecture_id': lecture_id})
+        students = lecture['students']
+        total_data = []
+
+        for student_id in students:
+            student_info = self.db.students.find_one({'student_id': student_id})
+            data = {
+                "student_name": student_info['name'],
+                "student_id": student_info["student_id"],
+                "department": student_info["dept"],
+                "attendance": student_info["attendance"],
+                "late": student_info["late"],
+                "missing": student_info["missing"],
+            }
+
+            total_data.append(data)
+        return total_data
+
 
 if __name__ == "__main__":
     db = DB()
