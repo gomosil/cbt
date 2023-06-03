@@ -41,7 +41,7 @@ export const QRGenerator = (props) => {
   useEffect(() => {
     const fetchQRCode = async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + '/qr_code', {
+        const response = await axios.get('http://172.25.244.37:5001/qr_code', {
           headers: {
             'Content-Type': 'application/json',
           },

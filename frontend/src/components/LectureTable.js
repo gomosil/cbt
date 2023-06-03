@@ -20,7 +20,7 @@ export const LectureTable = () => {
     const fetchProfessorInfo = async () => {
       try {
         console.log("table: sending: " + cookies.credentials.id)
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + '/lecture_list', {
+        const response = await axios.get('http://172.25.244.37:5001/lecture_list', {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -91,7 +91,7 @@ export const LectureInfo = (props) => {
     const fetchLectureInfo = async () => {
       try {
         console.log("table: sending: " + classID)
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + '/lecture_details', {
+        const response = await axios.get('http://172.25.244.37:5001/lecture_details', {
           headers: {
             'Content-Type': 'application/json',
           },

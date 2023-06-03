@@ -21,7 +21,7 @@ export default () => {
     const fetchProfessorInfo = async () => {
       try {
         console.log("sending: " + cookies.credentials.id)
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + '/professor_info', {
+        const response = await axios.get('http://172.25.244.37:5001/professor_info', {
           headers: {
             'Content-Type': 'application/json',
           },
