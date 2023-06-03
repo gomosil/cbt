@@ -4,7 +4,8 @@ from pymongo import MongoClient
 
 # Retrieve environment variables for containers.
 server_name = os.getenv("MONGO_DB_URL")
-server_port = os.getenv("MONGO_DB_PORT")
+server_port = int(os.getenv("MONGO_DB_PORT"))
+print(f"Connecting to DB {server_name}:{server_port}")
 
 # Connect to DB and make collection named applications.
 client = MongoClient(server_name, server_port)
@@ -13,14 +14,18 @@ db = client.applications
 client.drop_database('applications') 
 
 # Insert professor information to DB.
-professor = {
+professor = [{
     'name': '정우진',
     'id': 'test',
     'password': 1234,
     'lectures': [521210, 465620, 525680]
-}
+},{ 'name': '유시환',
+    'id': 'test2',
+    'password': 1234,
+    'lectures': [521210, 465620, 525680]
+}]
 
-db.users.insert_one(professor)
+db.users.insert_many(professor)
 
 # Add lecture informations to DB.
 lecture =[
@@ -29,10 +34,7 @@ lecture =[
         'name': '고급모바일실험1 ',
         'lectured': 'false',    # 출강 여부
         'students': ['32####03', '32####71', '32####99', '32####84', '32####97', '32####88', '32####56', '32####83',
-                     '32####25', '32####39', '32####93', '32####68', '32####23', '32####15', '32####80', '32####68',
-                     '32####67', '32####08', '32####90', '32####42', '32####98', '32####54', '32####30', '32####87',
-                     '32####87', '32####06', '32####63', '32####35', '32####12', '32####74', '32####22', '32####94',
-                     '32####16', '32####77', '32####77', '32####75', '32####44', '32####42', '32####16'],
+                     '32####25', '32####39'],
         'department': "모바일시스템공학과",
         'mid_attendance': str(uuid.uuid4())
     },
@@ -40,7 +42,8 @@ lecture =[
         'lecture_id': 465620,
         'name': '자바프로그래밍 ',
         'lectured': 'false',
-        'students': [ ],
+        'students': [ '32####93', '32####68', '32####23', '32####15', '32####80', '32####68',
+                     '32####67', '32####08', '32####90', '32####42', '32####98', '32####54', '32####30', '32####87'],
         'department': "모바일시스템공학과",
         'mid_attendance': str(uuid.uuid4())
     },
@@ -48,7 +51,8 @@ lecture =[
         'lecture_id': 525680,
         'name': '임베디드시스템및loT로의 활용',
         'lectured': 'false',
-        'students': [],
+        'students': [ '32####87', '32####06', '32####63', '32####35', '32####12', '32####74', '32####22', '32####94',
+                     '32####16', '32####77', '32####77', '32####75', '32####44', '32####42', '32####16' ],
         'department': "모바일시스템공학과",
         'mid_attendance': str(uuid.uuid4())
     }
@@ -374,4 +378,4 @@ student = [
     }
 ]
 
-db.users.insert_many(student)
+db.students.insert_many(student)
