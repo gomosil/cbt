@@ -4,7 +4,7 @@ from flask import Flask, request, send_file, Response
 from flask_cors import CORS
 import json
 import qrcode
-from backend.db import DB
+from db.db import DB
 
 app = Flask(__name__)
 CORS(app)
@@ -27,25 +27,15 @@ def login():
 
     try:
         password = db.get_password(professor_id)
-        if professor_password == password
+        if professor_password == password:
             return Response(status=200)
-        else
+        else:
             return Response(status=403)
 
     except TypeError:
 
         return Response(status=403)
-
-    #print(data)
-
-    # Check Credentials, but this needs to be implemented in the future!!
-    """
-    if professor_id == "test" and password == "1234":
-        return Response(status=200)
-    else:
-        return Response(status=403)
-    """
-
+    
 @app.route('/professor_info', methods=['GET'])
 def professor_info():
     """
