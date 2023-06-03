@@ -24,6 +24,8 @@ import "./scss/volt.scss";
 import "react-datetime/css/react-datetime.css";
 
 import HomePage from "./pages/HomePage";
+import dotenv from 'dotenv';
+dotenv.config();
 
 ReactDOM.render(
   <BrowserRouter>
