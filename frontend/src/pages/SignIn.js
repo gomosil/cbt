@@ -56,6 +56,7 @@ const LoginComponent = () => {
         const credentials = {
           id: id,
           isLoggedIn: true,
+          password: password,
         };
         setCookie('credentials', credentials, { path: '/' });
       } else {
