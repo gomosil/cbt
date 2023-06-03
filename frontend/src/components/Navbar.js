@@ -21,10 +21,6 @@ export default () => {
         const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/professor_info', {
           id: cookies.credentials.id,
         });
-
-        console.log(JSON.stringify({
-          id: cookies.credentials.id,
-        }))
         
         const professorInfo = response.data;
         setProfessorName(professorInfo.name);
@@ -38,7 +34,6 @@ export default () => {
   
   // For handling signout.
   const handleSignout = () => {
-    console.log("HANDLE SIGNOUT")
     // Remove the cookie
     const credentials = {
       id: 'test',

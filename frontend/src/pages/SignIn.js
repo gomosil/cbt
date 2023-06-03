@@ -45,9 +45,6 @@ const LoginComponent = () => {
     try {
       const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/login', data);
   
-      // Handle response if needed
-      console.log(response);
-  
       // Handle success case
       // Assuming response status 200 is considered a successful login
       if (response.status === 200) {
@@ -61,7 +58,6 @@ const LoginComponent = () => {
           isLoggedIn: true,
         };
         setCookie('credentials', credentials, { path: '/' });
-        console.log(cookies)
       } else {
         // Show alert for login failure
         setShowLoginFailure(true);

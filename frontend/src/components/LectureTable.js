@@ -13,8 +13,6 @@ export const LectureTable = () => {
   const [cookies] = useCookies(['credentials']);
   const [tableInfo, setTableInfo] = useState([]);
 
-  console.log(cookies)
-
   useEffect(() => {
     // Fetch professor information using axios using JSON formatting.
     const fetchProfessorInfo = async () => {
@@ -79,18 +77,8 @@ export const LectureInfo = (props) => {
     // Fetch professor information using axios using JSON formatting.
     const fetchLectureInfo = async () => {
       try {
-        console.log("table: sending: " + classID)
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + '/lecture_details', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          data: JSON.stringify({
-            id: classID
-          }),
-        });
-        
+        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/lecture_details', { lecture_id: classID });
         setTableInfo(response.data);  // Access the JSON response
-        console.log("TABLE INFO:" + tableInfo)
       } catch (error) {
         console.error(error);
       }
@@ -99,7 +87,6 @@ export const LectureInfo = (props) => {
   }, []);
 
   const TableRow = (props) => {
-    console.log(props);
     const { student_name, student_id, department, attendance } = props;
     const stat = attendance ? "출석" : "결석";
 
