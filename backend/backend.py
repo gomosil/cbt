@@ -3,7 +3,9 @@ import random
 from flask import Flask, request, send_file, Response
 from flask_cors import CORS
 import json
+import uuid
 import qrcode
+import os
 from db.db import DB
 
 app = Flask(__name__)
@@ -82,31 +84,49 @@ def lecture_details():
         response = []
         return Response(json.dumps(response), status=200)
 
-
-def generate_random_url():
-    length = 10
-    characters = string.ascii_letters + string.digits
-    random_url = ''.join(random.choice(characters) for _ in range(length))
-    return random_url
-
-
-@app.route('/qr_code', methods=['GET'])
+@app.route('/generate_qr_code', methods=['POST'])
 def generate_qr_code():
-    # url = generate_random_url()
-    url = "http://172.25.244.37:3000/student/foo-bar"
+    data = request.get_json()
+    print(data)
+    lecture_id = data.get('lecture_id')
+    admin_password = data.get('password')
+    duration = data.get("duration")
+
+    # Generate QR code using the UUID generated
+    tmp_uuid = str(uuid.uuid4())
+    #base_url = os.getenv("BASE_URL")
+    base_url = "http://g-k8s-master.isu.mosl"
+    url = base_url + "/student/" + tmp_uuid
     qr = qrcode.QRCode(version=1, box_size=10, border=5)
     qr.add_data(url)
     qr.make(fit=True)
     qr_image = qr.make_image(fill_color="black", back_color="white")
-    image_path = 'url.png'
+    image_path = tmp_uuid + '.png'
     qr_image.save(image_path)
-    return send_file(image_path, mimetype='image/png')
 
+    print("generated: " + tmp_uuid)
+    return Response(json.dumps({'tmp_uuid': tmp_uuid}), status=200)
 
-@app.route('/lecture_name', methods=['GET'])
+@app.route('/host_qr_code/<tmp_uuid>', methods=['GET'])
+def host_qr_code(tmp_uuid):
+    image_path = tmp_uuid + '.png'
+    print("served : " + tmp_uuid)
+
+    try:
+        return send_file(image_path, mimetype='image/png')
+    except:
+        return Response(status=404)
+
+@app.route('/lecture_name', methods=['POST'])
 def lecture_name():
-    return Response(json.dumps({'name': "고급모바일실험"}), status=200)
-
+    data = request.get_json()
+    tmp_uuid = data.get('tmp_uuid')
+    try:  # Try retrieving data from DB.
+        lecture_name = db.get_attendance_info(tmp_uuid)
+        return Response(json.dumps(lecture_name), status=200)
+    except KeyError:  # If the attendance session was not found in db
+        response = {'name': "Unknown"}
+        return Response(json.dumps(response), status=200)
 
 @app.route('/lecture_attend', methods=['POST'])
 def lecture_attend():
@@ -118,14 +138,37 @@ def lecture_attend():
     If the student was not correct, this will return status code 403.
     """
     data = request.get_json()
-    name = data.get('name')
     student_id = data.get('studentid')
-    print(data)
+    tmp_uuid = data.get('tmp_uuid')
 
-    # Check Credentials, but this needs to be implemented in the future!!
-    if name == "test" and student_id == "1234":
+    try:
+        db.attendence_attend(tmp_uuid, student_id)
         return Response(status=200)
-    else:
+    except:
+        return Response(status=403)
+
+@app.route('/stop_attendence', methods=['POST'])
+def stop_attendence():
+    data = request.get_json()
+    tmp_uuid = data.get('tmp_uuid')
+    admin_password = data.get('admin_password')
+
+    try:
+        stop_attendance(tmp_uuid, admin_password)
+        return Response(status=200)
+    except:
+        return Response(status=403)
+
+@app.route('/extend_attendance', methods=['POST'])
+def extend_attendancec():
+    data = request.get_json()
+    tmp_uuid = data.get('tmp_uuid')
+    admin_password = data.get('admin_password')
+
+    try:
+        extend_attendance(tmp_uuid, admin_password)
+        return Response(status=200)
+    except:
         return Response(status=403)
 
 

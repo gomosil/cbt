@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from datetime import datetime, timedelta
 import os
 
 class DB:
@@ -62,6 +63,58 @@ class DB:
             total_data.append(data)
         return total_data
 
+    def add_qr_code_url(self, lecture_id, tmp_uuid, duration, password):
+        data = {
+            "lecture_id": lecture_id,
+            "lecture_name": self.db.lectures.find_one({'lecture_id': lecture_id})['name'],
+            "tmp_uuid": tmp_uuid,
+            "starting_time": datetime.now(),
+            "duration": duration,
+            "is_valid": True,
+            "password": password
+        }
+
+        self.db.attendance_check.insert_one(data)
+
+    def get_session_lecture_name(self, lecture_id):
+        lecture = self.db.attendance_check.find_one({'lecture_id': lecture_id})
+        return {'name': lecure['name']}
+
+    def get_attendance_info(self, tmp_uuid):
+        attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
+        current_time = datetime.now()
+        expiration = attendance['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
+
+        if current_time < expiration:  # The attendance is valid
+            pass
+        else:  # If the attendance was expired
+            attendance_session['is_valid'] = False  # Make this expired and update it to DB.
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
+        return {'lecture_name': attendance_session['lecture_name']}
+
+    def stop_attendance(self, tmp_uuid, password):
+        attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
+        if str(password) == attendance_session['password']:   # If input password matched,
+            attendance_session['is_valid'] = False  # Expire the attendance session.
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
+
+    def extend_attendance(self, tmp_uuid, password, duration):
+        attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
+        if str(password) == attendance_session['password']:   # If input password matched,
+            attendance_session['duration'] += duration  # Extend the duration by given duration.
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
+
+    def attendence_attend(self, tmp_uuid, student_id):
+        attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
+        current_time = datetime.now()
+        expiration = attendance['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
+
+        if current_time < expiration:  # The attendance session is valid.
+            student = self.db.students.find_one({'student_id': student_id})
+            student['missing'] = False
+            self.db.students.update_one({'student_id': student_id}, student) # Mark user as attending the class.
+        else:  # If the attendance was expired
+            raise TimeoutError
 
 if __name__ == "__main__":
     db = DB()
