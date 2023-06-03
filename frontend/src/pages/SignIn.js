@@ -43,11 +43,7 @@ const LoginComponent = () => {
     };
   
     try {
-      // @TODO: This shall be changed to real backend IP
-      const response = await axios.post('http://172.25.244.37:5001/login', data);
-  
-      // Handle response if needed
-      console.log(response);
+      const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/login', data);
   
       // Handle success case
       // Assuming response status 200 is considered a successful login
@@ -58,11 +54,11 @@ const LoginComponent = () => {
 
         // Store Cookie
         const credentials = {
-          id: 'test',
+          id: id,
           isLoggedIn: true,
+          password: password,
         };
         setCookie('credentials', credentials, { path: '/' });
-        console.log(cookies)
       } else {
         // Show alert for login failure
         setShowLoginFailure(true);

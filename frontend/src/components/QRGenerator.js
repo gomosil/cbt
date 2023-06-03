@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Row, Card, Button, Modal } from '@themesberg/react-bootstrap';
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
+import { useCookies } from 'react-cookie';
+import { Redirect } from 'react-router-dom';
 import { Routes } from '../routes';
 
 /**
@@ -35,27 +36,25 @@ export const QRGenerator = (props) => {
   const [remainingTime, setRemainingTime] = useState(60); // 60 seconds = 1 minute
   const [showPopup, setShowPopup] = useState(false);
   const [redirectToDashboard, setRedirectToDashboard] = useState(false);
+  const [cookies] = useCookies(['credentials']);
 
   const { classID } = props;
 
   useEffect(() => {
-    const fetchQRCode = async () => {
+    const generateQRCode = async () => {
       try {
-        const response = await axios.get('http://172.25.244.37:5001/qr_code', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          params: {
-            id: classID
-          },
-          responseType: 'blob'
+        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/generate_qr_code', {
+          lecture_id: classID,
+          password: cookies.credentials.password,
+          duration: 60
         });
 
         if (response.status === 200) {
-          const imageDataUrl = URL.createObjectURL(response.data);
-          setImageUrl(imageDataUrl);
+          const { tmp_uuid } = response.data;
+          const imageUrl = `${process.env.REACT_APP_BACKEND_URL}/host_qr_code/${tmp_uuid}`;
+          setImageUrl(imageUrl);
         } else {
-          console.log('Failed to get QR code');
+          console.log('Failed to generate QR code');
           console.log(response);
         }
       } catch (error) {
@@ -63,7 +62,7 @@ export const QRGenerator = (props) => {
       }
     };
 
-    fetchQRCode();
+    generateQRCode();
   }, [classID]);
 
   useEffect(() => {
@@ -92,7 +91,6 @@ export const QRGenerator = (props) => {
   const handleClosePopup = () => {
     setShowPopup(false);
     setRedirectToDashboard(true);
-    return(<Redirect to={Routes.DashboardOverview.path} />);
   };
 
   return (
