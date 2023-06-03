@@ -21,12 +21,26 @@ class DB:
 
         lecs = ret['lectures']
         for lec in lecs:
-            x = self.db.lectures.find_one({'lecture_id': lec})['name']
-            lecture_names.append(x)
+            name = self.db.lectures.find_one({'lecture_id': lec})['name']
+            lecture_names.append(name)
         
         total_data = {'name': ret['name'], 'lectures': lecture_names}
         return total_data
 
+    def get_professor_lecture_list(self, professor_id):
+        lecture_ids = self.db.users.find_one({'id': professor_id})['lectures']
+        total_data = []
+        for lecture_id in lecture_ids:
+            lec = self.db.lectures.find_one({'lecture_id': lecture_id})
+            data = {
+                    "name": lec['name'],
+                    "dept": lec['department'],
+                    "lectured": lec['lectured'],
+                    "count": len(lec["students"]),
+                    "id": lecture_id
+                }
+            total_data.append(data)
+        return total_data
 
 if __name__ == "__main__":
     db = DB()

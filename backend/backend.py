@@ -39,46 +39,32 @@ def login():
 @app.route('/professor_info', methods=['POST'])
 def professor_info():
     """
-    A function that deals with endpoint /professor_info (GET)
+    A function that deals with endpoint /professor_info (POST)
     Since this is a testing function, this will return random professor information
     """
     data = request.get_json()
     professor_id = data.get('id')
-    professor_info = db.get_professor_info(professor_id)
-    try:
-        response = {"name": "정우진", "lectures": ["고급모바일실험", "운영체제", "컴퓨터구조"]}
+    try:  # Try retrieving data from DB.
+        professor_info = db.get_professor_info(professor_id)
         return Response(json.dumps(professor_info), status=200)
-    except KeyError:
+    except KeyError:  # If the professor ID was not found in db
         response = {"name": "", "lectures": []}
         return Response(json.dumps(response), status=200)        
 
-
-
-@app.route('/lecture_list', methods=['GET'])
+@app.route('/lecture_list', methods=['POST'])
 def lecture_list():
     """
     A function that deals with endpoint /lecture_info (GET)
     Since this is a testing function, this will return random data.
     """
-
-    data = [{
-        'name': "고급모바일실험",
-        'dept': "모바일시스템공학과",
-        'lectured': False,
-        'count': 11,
-        'id': 1,
-    },
-        {
-            'name': "운영체제",
-            'dept': "모바일시스템공학과",
-            'lectured': False,
-            'count': 12,
-            'id': 2,
-        }
-    ]
-
-    return Response(json.dumps(data), status=200)
-
+    data = request.get_json()
+    professor_id = data.get('id')
+    try:  # Try retrieving data from DB.
+        lecture_list = db.get_professor_lecture_list(professor_id)
+        return Response(json.dumps(lecture_list), status=200)
+    except KeyError:  # If the professor ID was not found in db
+        response = []
+        return Response(json.dumps(response), status=200)
 
 @app.route('/lecture_details', methods=['GET'])
 def lecture_details():
