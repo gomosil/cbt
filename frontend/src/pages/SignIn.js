@@ -57,7 +57,7 @@ const LoginComponent = () => {
 
         // Store Cookie
         const credentials = {
-          id: 'test',
+          id: id,
           isLoggedIn: true,
         };
         setCookie('credentials', credentials, { path: '/' });
