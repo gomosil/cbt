@@ -1,12 +1,18 @@
 import uuid
-
+import os
 from pymongo import MongoClient
 
-client = MongoClient('localhost', 27017)
-db = client.applications # applications라는 데이터베이스 생성
-client.drop_database('applications')
+# Retrieve environment variables for containers.
+server_name = os.getenv("MONGO_DB_URL")
+server_port = os.getenv("MONGO_DB_PORT")
 
-# professor
+# Connect to DB and make collection named applications.
+client = MongoClient(server_name, server_port)
+db = client.applications 
+# Just in case we might have changed the DB's arch, drop prior one.
+client.drop_database('applications') 
+
+# Insert professor information to DB.
 professor = {
     'name': '정우진',
     'id': 'test',
@@ -14,11 +20,9 @@ professor = {
     'lectures': [521210, 465620, 525680]
 }
 
-# professor insert
 db.users.insert_one(professor)
 
-
-# lectures
+# Add lecture informations to DB.
 lecture =[
     {
         'lecture_id': 521210,   # 교과목 번호
@@ -50,11 +54,9 @@ lecture =[
     }
 ]
 
-# lecture insert
 db.lectures.insert_many(lecture)
 
-
-# students
+# Add student's information into DB.
 student = [
     {
         'student_id': '32####03',
@@ -370,22 +372,6 @@ student = [
         'late': 'false',
         'missing': 'false'
     }
-
-
 ]
 
-# student insert
 db.users.insert_many(student)
-
-
-
-
-
-
-# 교과목 번호로 강의 찾기
-test = db.users.find_one({'lecture_id': 521210})
-print(test)
-
-# 학생 이름으로 정보 찾기
-test1 = db.users.find_one({'name': '양대한'})
-print(test1)
