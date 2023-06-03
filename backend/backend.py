@@ -27,7 +27,7 @@ def login():
 
     try:
         password = db.get_password(professor_id)
-        if professor_password == password:
+        if str(professor_password) == str(password):
             return Response(status=200)
         else:
             return Response(status=403)
@@ -36,26 +36,22 @@ def login():
 
         return Response(status=403)
     
-@app.route('/professor_info', methods=['GET'])
+@app.route('/professor_info', methods=['POST'])
 def professor_info():
     """
     A function that deals with endpoint /professor_info (GET)
     Since this is a testing function, this will return random professor information
     """
-
-
     data = request.get_json()
-    """
-    if data.get('id') == "test":    
-        # This needs to be implemented in the future!!
+    professor_id = data.get('id')
+    professor_info = db.get_professor_info(professor_id)
+    try:
         response = {"name": "정우진", "lectures": ["고급모바일실험", "운영체제", "컴퓨터구조"]}
-        return Response(json.dumps(response), status=200)
-    else:
+        return Response(json.dumps(professor_info), status=200)
+    except KeyError:
         response = {"name": "", "lectures": []}
-        return Response(json.dumps(response), status=200)
-    """
-    response = db.get_professor_info()
-    return Response(json.dumps(response), status=200)
+        return Response(json.dumps(response), status=200)        
+
 
 
 @app.route('/lecture_list', methods=['GET'])
