@@ -43,7 +43,6 @@ const LoginComponent = () => {
     };
   
     try {
-      // @TODO: This shall be changed to real backend IP
       const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/login', data);
   
       // Handle response if needed

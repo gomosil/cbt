@@ -41,9 +41,6 @@ export const RightSlidePage = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { clickButton, classID, lectureName } = props;
 
-    console.log("NMAME<E<E<E<E: "+ lectureName)
-
-
     const openSpace = () => setIsOpen(true);
     const closeSpace = () => setIsOpen(false);
   

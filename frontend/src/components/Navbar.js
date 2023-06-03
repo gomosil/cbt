@@ -14,28 +14,25 @@ export default () => {
   const [cookies, setCookie] = useCookies(['credentials']);
   const [professorName, setProfessorName] = useState('');
 
-  console.log(cookies)
-
   useEffect(() => {
-    // Fetch professor information using axios using JSON formatting.
+    // Fetch professor information using axios with JSON formatting.
     const fetchProfessorInfo = async () => {
-      try {
-        console.log("sending: " + cookies.credentials.id)
-        const response = await axios.get(process.env.REACT_APP_BACKEND_URL + '/professor_info', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          data: JSON.stringify({
-            id: cookies.credentials.id,
-          }),
+      try {       
+        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/professor_info', {
+          id: cookies.credentials.id,
         });
+
+        console.log(JSON.stringify({
+          id: cookies.credentials.id,
+        }))
         
-        const professorInfo = response.data;  // Access the JSON response
+        const professorInfo = response.data;
         setProfessorName(professorInfo.name);
       } catch (error) {
         console.error(error);
       }
     };
+
     fetchProfessorInfo();
   }, []);
   

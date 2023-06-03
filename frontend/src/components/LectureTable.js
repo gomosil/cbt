@@ -24,9 +24,9 @@ export const LectureTable = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          data: JSON.stringify({
+          data: {
             id: cookies.credentials.id,
-          }),
+          },
         });
         
         setTableInfo(response.data);  // Access the JSON response
