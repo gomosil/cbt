@@ -47,7 +47,8 @@ export const QRGenerator = (props) => {
         const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/generate_qr_code', {
           lecture_id: classID,
           password: cookies.credentials.password,
-          duration: 60
+          duration: 60,
+          base_url: window.location.origin,
         });
 
         if (response.status === 200) {
@@ -126,6 +127,7 @@ export const QRGenerator = (props) => {
             <Card className="qr-code-card">
               <Card.Body className="text-center">
                 <h5>QR 코드를 카메라로 찍으세요!</h5>
+                <h4>{window.location.origin}/student/{tmpUUID}</h4>
                 <div className="timer-counter">{remainingTime}초</div>
                 <img src={imageUrl} alt="QR Code" className="centered-image" />
                 <ButtonsComponent extendTimer={extendTimer} stopTimer={stopTimer} isTimerRunning={isTimerRunning} />
