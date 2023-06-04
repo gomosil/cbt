@@ -66,24 +66,21 @@ student = [
         'student_id': '32####03',
         'name': '강형철',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####71',
         'name': '김민주',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####99',
         'name': '김수진',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
 
@@ -91,289 +88,253 @@ student = [
         'student_id': '32####56',
         'name': '김지훈',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####83',
         'name': '나윤진',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####25',
         'name': '덜거르마',
         'dept': '모바일시스템공학과',
-         'attendance': 'false',
-         'late': 'false',
-         'missing': True
+        'attendance': 'not-ready',
+        'missing': True
     },
     {
          'student_id': '32####39',
          'name': '마이클',
          'dept': '모바일시스템공학과',
-         'attendance': 'false',
-         'late': 'false',
-         'missing': True
+        'attendance': 'not-ready',
+        'missing': True
     },
     {
          'student_id': '32####93',
          'name': '무하마드',
          'dept': '모바일시스템공학과',
-         'attendance': 'false',
-         'late': 'false',
-         'missing': True
+        'attendance': 'not-ready',
+        'missing': True
     },
     {
          'student_id': '32####68',
          'name': '박근남',
          'dept': '모바일시스템공학과',
-         'attendance': 'false',
-         'late': 'false',
-         'missing': True
+        'attendance': 'not-ready',
+        'missing': True
      },
     {
         'student_id': '32####23',
         'name': '박민주',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####15',
         'name': '박범순',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####80',
         'name': '박유빈',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####68',
         'name': '박윤아',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
          'student_id': '32####84',
          'name': '김이수',
          'dept': '모바일시스템공학과',
-         'attendance': 'false',
-         'late': 'false',
-         'missing': True
+        'attendance': 'not-ready',
+        'missing': True
     },
 
     {
         'student_id': '32####97',
         'name': '김준형',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####88',
         'name': '김지용',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####67',
         'name': '백광렬',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####08',
         'name': '서원형',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####90',
         'name': '손보경',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####42',
         'name': '신우재',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####98',
         'name': '심예린',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####54',
         'name': '양대한',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####30',
         'name': '양윤성',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####87',
         'name': '엄현호',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####87',
         'name': '이라은',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####06',
         'name': '이영주',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####63',
         'name': '임석민',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####35',
         'name': '자스퍼',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####12',
         'name': '전혜림',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####74',
         'name': '정민호',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####22',
         'name': '조세안케빈',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####94',
         'name': '조정희',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####16',
         'name': '최유진',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####77',
         'name': '최윤호',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####77',
         'name': '탤래토프 쇼한루흐',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####75',
         'name': '트란지아응웬충',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####44',
         'name': '트란티엔디엠퀸',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####42',
         'name': '피비 리',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     },
     {
         'student_id': '32####16',
         'name': '허남훈',
         'dept': '모바일시스템공학과',
-        'attendance': 'false',
-        'late': 'false',
+        'attendance': 'not-ready',
         'missing': True
     }
 ]

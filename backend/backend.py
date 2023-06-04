@@ -84,6 +84,15 @@ def lecture_details():
         response = []
         return Response(json.dumps(response), status=200)
 
+@app.route('/save_attendance', methods=['POST'])
+def save_attendance():
+    data = request.get_json()
+    lecture_id = data.get('lecture_id')
+    attendance = data.get('attendance')
+    db.save_lecture_attendance(lecture_id, attendance)
+    return Response(status=200)
+
+
 @app.route('/generate_qr_code', methods=['POST'])
 def generate_qr_code():
     data = request.get_json()

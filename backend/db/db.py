@@ -56,12 +56,21 @@ class DB:
                 "student_id": student_info["student_id"],
                 "department": student_info["dept"],
                 "attendance": student_info["attendance"],
-                "late": student_info["late"],
                 "missing": student_info["missing"],
             }
 
             total_data.append(data)
         return total_data
+
+    def save_lecture_attendance(self, lecture_id, attendance):
+        lecture = self.db.lectures.find_one({'lecture_id': lecture_id})
+        students = lecture['students']
+        total_data = []
+
+        for attendance_info in attendance:
+            student_info = self.db.students.find_one({'student_id': attendance_info['student_id']})
+            student_info['attendance'] = attendance_info['attendance']
+            self.db.students.update_one({'student_id': attendance_info['student_id']}, {"$set": student_info})
 
     def add_qr_code_url(self, lecture_id, tmp_uuid, duration, password):
         data = {
