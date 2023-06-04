@@ -72,6 +72,11 @@ class DB:
             student_info['attendance'] = attendance_info['attendance']
             self.db.students.update_one({'student_id': attendance_info['student_id']}, {"$set": student_info})
 
+    def mark_lectured(self, lecture_id, professor_id):
+        lecture = self.db.lectures.find_one({'lecture_id': lecture_id})
+        lecture['lectured'] = True
+        self.db.lectures.update_one({'lecture_id': lecture_id}, {"$set": lecture})
+
     def add_qr_code_url(self, lecture_id, tmp_uuid, duration, password):
         data = {
             "lecture_id": lecture_id,

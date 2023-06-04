@@ -89,8 +89,13 @@ def save_attendance():
     data = request.get_json()
     lecture_id = data.get('lecture_id')
     attendance = data.get('attendance')
-    db.save_lecture_attendance(lecture_id, attendance)
-    return Response(status=200)
+    professor_id = data.get('professor_id')
+    try:
+        db.save_lecture_attendance(lecture_id, attendance)
+        db.mark_lectured(lecture_id, attendance)
+        return Response(status=200)
+    except:
+        return Response(status=500)
 
 
 @app.route('/generate_qr_code', methods=['POST'])
