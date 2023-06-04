@@ -87,12 +87,11 @@ def lecture_details():
 @app.route('/generate_qr_code', methods=['POST'])
 def generate_qr_code():
     data = request.get_json()
-    print(data)
     lecture_id = data.get('lecture_id')
     admin_password = data.get('password')
     duration = data.get("duration")
 
-    # Generate QR code using the UUID generated
+    # Generate QR code using the UUID generated.
     tmp_uuid = str(uuid.uuid4())
     #base_url = os.getenv("BASE_URL")
     base_url = "http://g-k8s-master.isu.mosl"
@@ -103,22 +102,23 @@ def generate_qr_code():
     qr_image = qr.make_image(fill_color="black", back_color="white")
     image_path = tmp_uuid + '.png'
     qr_image.save(image_path)
+    
+    # Add attendance session to DB.
+    db.add_qr_code_url(lecture_id, tmp_uuid, duration, admin_password)
 
-    print("generated: " + tmp_uuid)
+    print("Generated Attendance Session: " + tmp_uuid)
     return Response(json.dumps({'tmp_uuid': tmp_uuid}), status=200)
 
 @app.route('/host_qr_code/<tmp_uuid>', methods=['GET'])
 def host_qr_code(tmp_uuid):
     image_path = tmp_uuid + '.png'
-    print("served : " + tmp_uuid)
-
     try:
         return send_file(image_path, mimetype='image/png')
     except:
         return Response(status=404)
 
-@app.route('/lecture_name', methods=['POST'])
-def lecture_name():
+@app.route('/attendance_session_info', methods=['POST'])
+def attendance_session_info():
     data = request.get_json()
     tmp_uuid = data.get('tmp_uuid')
     try:  # Try retrieving data from DB.
@@ -147,26 +147,27 @@ def lecture_attend():
     except:
         return Response(status=403)
 
-@app.route('/stop_attendence', methods=['POST'])
-def stop_attendence():
+@app.route('/stop_attendance', methods=['POST'])
+def stop_attendance():
     data = request.get_json()
     tmp_uuid = data.get('tmp_uuid')
     admin_password = data.get('admin_password')
 
     try:
-        stop_attendance(tmp_uuid, admin_password)
+        db.stop_attendance(tmp_uuid, admin_password)
         return Response(status=200)
     except:
         return Response(status=403)
 
 @app.route('/extend_attendance', methods=['POST'])
-def extend_attendancec():
+def extend_attendance():
     data = request.get_json()
     tmp_uuid = data.get('tmp_uuid')
     admin_password = data.get('admin_password')
+    duration = data.get('duration')
 
     try:
-        extend_attendance(tmp_uuid, admin_password)
+        db.extend_attendance(tmp_uuid, admin_password, duration)
         return Response(status=200)
     except:
         return Response(status=403)

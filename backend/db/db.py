@@ -73,7 +73,6 @@ class DB:
             "is_valid": True,
             "password": password
         }
-
         self.db.attendance_check.insert_one(data)
 
     def get_session_lecture_name(self, lecture_id):
@@ -82,27 +81,29 @@ class DB:
 
     def get_attendance_info(self, tmp_uuid):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
-        current_time = datetime.now()
-        expiration = attendance['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
 
+        current_time = datetime.now()
+        duration = attendance_session['duration']
+        expiration = attendance_session['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
+        is_valid = attendance_session['is_valid']
         if current_time < expiration:  # The attendance is valid
-            pass
+            return {'lecture_name': attendance_session['lecture_name'], 'is_valid': is_valid}
         else:  # If the attendance was expired
             attendance_session['is_valid'] = False  # Make this expired and update it to DB.
-            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
-        return {'lecture_name': attendance_session['lecture_name']}
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, {"$set": attendance_session})
+            return {'lecture_name': attendance_session['lecture_name'], 'is_valid': False}
 
     def stop_attendance(self, tmp_uuid, password):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
-        if str(password) == attendance_session['password']:   # If input password matched,
+        if str(password) == str(attendance_session['password']):   # If input password matched,
             attendance_session['is_valid'] = False  # Expire the attendance session.
-            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, {"$set": attendance_session})
 
     def extend_attendance(self, tmp_uuid, password, duration):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
-        if str(password) == attendance_session['password']:   # If input password matched,
+        if str(password) == str(attendance_session['password']):   # If input password matched,
             attendance_session['duration'] += duration  # Extend the duration by given duration.
-            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, {"$set": attendance_session})
 
     def attendence_attend(self, tmp_uuid, student_id):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
