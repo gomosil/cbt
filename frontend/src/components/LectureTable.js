@@ -17,7 +17,7 @@ export const LectureTable = () => {
     // Fetch professor information using axios using JSON formatting.
     const fetchProfessorInfo = async () => {
       try {
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/lecture_list', { id: cookies.credentials.id });    
+        const response = await axios.post('api/lecture_list', { id: cookies.credentials.id });    
         setTableInfo(response.data);  // Access the JSON response
       } catch (error) {
         console.error(error);
@@ -80,7 +80,7 @@ export const LectureInfo = (props) => {
     // Fetch professor information using axios using JSON formatting.
     const fetchLectureInfo = async () => {
       try {
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/lecture_details', { lecture_id: classID });
+        const response = await axios.post('api/lecture_details', { lecture_id: classID });
         setTableInfo(response.data);  // Access the JSON response
 
         const attendanceData = response.data.map((info) => {
@@ -111,7 +111,7 @@ export const LectureInfo = (props) => {
       setTableInfo(updatedTableInfo);
 
       await axios.post(
-        process.env.REACT_APP_BACKEND_URL + '/save_attendance',
+        'api/save_attendance',
         { lecture_id: classID, attendance: attendenceInfo }
       );
 

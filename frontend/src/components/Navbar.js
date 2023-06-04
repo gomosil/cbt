@@ -18,7 +18,7 @@ export default () => {
     // Fetch professor information using axios with JSON formatting.
     const fetchProfessorInfo = async () => {
       try {       
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/professor_info', {
+        const response = await axios.post('api/professor_info', {
           id: cookies.credentials.id,
         });
         

@@ -1,4 +1,7 @@
-FROM node:12.22.9
+FROM ubuntu
+
+RUN apt-get update
+RUN apt-get install -y npm
 
 WORKDIR /app
 COPY package.json ./

@@ -43,7 +43,7 @@ const LoginComponent = () => {
     };
   
     try {
-      const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/login', data);
+      const response = await axios.post('api/login', data);
   
       // Handle success case
       // Assuming response status 200 is considered a successful login
