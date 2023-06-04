@@ -14,10 +14,10 @@ CORS(app)
 db = DB()
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     """
-    A function that deals with endpoint /login (POST)
+    A function that deals with endpoint /api/login (POST)
     Since this is a testing function, this will return following id credential as valid
     ID: test / PW: 1234
     If the credentials were correct, this will return status code 200
@@ -38,7 +38,7 @@ def login():
 
         return Response(status=403)
     
-@app.route('/professor_info', methods=['POST'])
+@app.route('/api/professor_info', methods=['POST'])
 def professor_info():
     """
     A function that deals with endpoint /professor_info (POST)
@@ -53,7 +53,7 @@ def professor_info():
         response = {"name": "", "lectures": []}
         return Response(json.dumps(response), status=200)        
 
-@app.route('/lecture_list', methods=['POST'])
+@app.route('/api/lecture_list', methods=['POST'])
 def lecture_list():
     """
     A function that deals with endpoint /lecture_info (GET)
@@ -68,7 +68,7 @@ def lecture_list():
         response = []
         return Response(json.dumps(response), status=200)
 
-@app.route('/lecture_details', methods=['POST'])
+@app.route('/api/lecture_details', methods=['POST'])
 def lecture_details():
     """
     A function that deals with endpoint /lecture_students (GET)
@@ -84,7 +84,7 @@ def lecture_details():
         response = []
         return Response(json.dumps(response), status=200)
 
-@app.route('/save_attendance', methods=['POST'])
+@app.route('/api/save_attendance', methods=['POST'])
 def save_attendance():
     data = request.get_json()
     lecture_id = data.get('lecture_id')
@@ -98,7 +98,7 @@ def save_attendance():
         return Response(status=500)
 
 
-@app.route('/generate_qr_code', methods=['POST'])
+@app.route('/api/generate_qr_code', methods=['POST'])
 def generate_qr_code():
     data = request.get_json()
     lecture_id = data.get('lecture_id')
@@ -122,7 +122,7 @@ def generate_qr_code():
     print("Generated Attendance Session: " + tmp_uuid)
     return Response(json.dumps({'tmp_uuid': tmp_uuid}), status=200)
 
-@app.route('/host_qr_code/<tmp_uuid>', methods=['GET'])
+@app.route('/api/host_qr_code/<tmp_uuid>', methods=['GET'])
 def host_qr_code(tmp_uuid):
     image_path = tmp_uuid + '.png'
     try:
@@ -130,7 +130,7 @@ def host_qr_code(tmp_uuid):
     except:
         return Response(status=404)
 
-@app.route('/attendance_session_info', methods=['POST'])
+@app.route('/api/attendance_session_info', methods=['POST'])
 def attendance_session_info():
     data = request.get_json()
     tmp_uuid = data.get('tmp_uuid')
@@ -141,7 +141,7 @@ def attendance_session_info():
         response = {'name': "Unknown"}
         return Response(json.dumps(response), status=200)
 
-@app.route('/lecture_attend', methods=['POST'])
+@app.route('/api/lecture_attend', methods=['POST'])
 def lecture_attend():
     """
     A function that deals with endpoint /lecture_attend (POST)
@@ -166,7 +166,7 @@ def lecture_attend():
     except:
         return Response(json.dumps({'message': '알려지지 않은 에러입니다.'}), status=403)
 
-@app.route('/stop_attendance', methods=['POST'])
+@app.route('/api/stop_attendance', methods=['POST'])
 def stop_attendance():
     data = request.get_json()
     tmp_uuid = data.get('tmp_uuid')
@@ -178,7 +178,7 @@ def stop_attendance():
     except:
         return Response(status=403)
 
-@app.route('/extend_attendance', methods=['POST'])
+@app.route('/api/extend_attendance', methods=['POST'])
 def extend_attendance():
     data = request.get_json()
     tmp_uuid = data.get('tmp_uuid')
