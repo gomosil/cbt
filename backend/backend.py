@@ -104,11 +104,10 @@ def generate_qr_code():
     lecture_id = data.get('lecture_id')
     admin_password = data.get('password')
     duration = data.get("duration")
+    base_url = data.get('base_url')
 
     # Generate QR code using the UUID generated.
     tmp_uuid = str(uuid.uuid4())
-    #base_url = os.getenv("BASE_URL")
-    base_url = "http://g-k8s-master.isu.mosl"
     url = base_url + "/student/" + tmp_uuid
     qr = qrcode.QRCode(version=1, box_size=10, border=5)
     qr.add_data(url)
