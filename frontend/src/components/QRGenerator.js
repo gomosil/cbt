@@ -44,7 +44,7 @@ export const QRGenerator = (props) => {
   useEffect(() => {
     const generateQRCode = async () => {
       try {
-        const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/generate_qr_code', {
+        const response = await axios.post('api/generate_qr_code', {
           lecture_id: classID,
           password: cookies.credentials.password,
           duration: 60,
@@ -53,7 +53,8 @@ export const QRGenerator = (props) => {
 
         if (response.status === 200) {
           const { tmp_uuid } = response.data;
-          const imageUrl = `${process.env.REACT_APP_BACKEND_URL}/host_qr_code/${tmp_uuid}`;
+          const imageUrl = window.location.origin + '/api/host_qr_code/' + tmp_uuid;
+          console.log(imageUrl)
           setImageUrl(imageUrl);
           setTmpUUID(tmp_uuid);
         } else {
@@ -84,7 +85,7 @@ export const QRGenerator = (props) => {
 
   const extendTimer = async () => {
     try {
-      const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/extend_attendance', {
+      const response = await axios.post('api/extend_attendance', {
         tmp_uuid: tmpUUID,
         admin_password: cookies.credentials.password,
         duration: 10
@@ -100,7 +101,7 @@ export const QRGenerator = (props) => {
 
   const stopTimer = async () => {
     try {
-      const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/stop_attendance', {
+      const response = await axios.post('api/stop_attendance', {
         tmp_uuid: tmpUUID,
         admin_password: cookies.credentials.password,
       });

@@ -21,10 +21,7 @@ export default () => {
         studentid: studentID,
         tmp_uuid: window.location.pathname.split("/")[2]
       };
-      response = await axios.post(
-        process.env.REACT_APP_BACKEND_URL + "/lecture_attend",
-        data
-      );
+      response = await axios.post(window.location.origin + "/api/lecture_attend", data);
       message = response.data.message;
       console.log(message);
   
@@ -51,10 +48,7 @@ export default () => {
         const data = {
           tmp_uuid: lectureSlug,
         };
-        const response = await axios.post(
-          process.env.REACT_APP_BACKEND_URL + "/attendance_session_info",
-          data
-        );
+        const response = await axios.post(window.location.origin + "/api/attendance_session_info", data);
 
         if (response.data.is_valid) {
           setIsSessionValid(true);
