@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useCookies } from 'react-cookie';
 
 import axios from 'axios';
-import { Col, Row, Card, Table, Button } from '@themesberg/react-bootstrap';
+import { Col, Row, Card, Table, Button, Alert } from '@themesberg/react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -73,6 +73,8 @@ export const LectureInfo = (props) => {
   const { classID } = props;
   const [tableInfo, setTableInfo] = useState([]);
   const [attendenceInfo, setAttendenceInfo] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertVariant, setAlertVariant] = useState('');
 
   useEffect(() => {
     // Fetch professor information using axios using JSON formatting.
@@ -107,13 +109,18 @@ export const LectureInfo = (props) => {
         };
       });
       setTableInfo(updatedTableInfo);
-  
-      const response = await axios.post(
+
+      await axios.post(
         process.env.REACT_APP_BACKEND_URL + '/save_attendance',
-        {lecture_id: classID, attendance: attendenceInfo}
+        { lecture_id: classID, attendance: attendenceInfo }
       );
+
+      setShowAlert(true);
+      setAlertVariant('success');
     } catch (error) {
       console.error(error);
+      setShowAlert(true);
+      setAlertVariant('danger');
     }
   };
 
@@ -196,32 +203,42 @@ export const LectureInfo = (props) => {
   };
 
   return (
-    <Card border="light" className="shadow-sm">
-      <Card.Header>
-        <Row className="align-items-center">
-          <Col>
-            <h5>학생 목록</h5>
-          </Col>
-        </Row>
-      </Card.Header>
-      <Table responsive className="align-items-center table-flush">
-        <thead className="thead-light">
-          <tr>
-            <th scope="col">이름</th>
-            <th scope="col">학번</th>
-            <th scope="col">학과</th>
-            <th scope="col">출결</th>
-            <th scope="col">중간 출석</th>
-            <th scope="col">출결 변경</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableInfo.map(pv => <TableRow key={`page-visit-${pv.id}`} {...pv} />)}
-        </tbody>
-      </Table>
-      <Button variant="primary" onClick={handleSaveAttendance}>
+    <>
+      <Card border="light" className="shadow-sm">
+        <Card.Header>
+          <Row className="align-items-center">
+            <Col>
+              <h5>학생 목록</h5>
+            </Col>
+          </Row>
+        </Card.Header>
+        {showAlert && (
+          <Alert variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
+            {alertVariant === 'success' ? '출석 정보를 저장했습니다.' : '출석 정보를 저장할 수 없습니다.'}
+          </Alert>
+        )}
+        <Table responsive className="align-items-center table-flush">
+          <thead className="thead-light">
+            <tr>
+              <th scope="col">이름</th>
+              <th scope="col">학번</th>
+              <th scope="col">학과</th>
+              <th scope="col">출결</th>
+              <th scope="col">중간 출석</th>
+              <th scope="col">출결 변경</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tableInfo.map((pv) => (
+              <TableRow key={`page-visit-${pv.id}`} {...pv} />
+            ))}
+          </tbody>
+        </Table>
+      </Card>
+      <br />
+      <Button variant="primary" className="w-100" onClick={handleSaveAttendance}>
         출석 저장
       </Button>
-    </Card>
+    </>
   );
 };
