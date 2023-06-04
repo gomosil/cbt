@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useCookies } from 'react-cookie';
 
 import axios from 'axios';
-import { Col, Row, Card, Table} from '@themesberg/react-bootstrap';
+import { Col, Row, Card, Table, Button } from '@themesberg/react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -72,6 +72,7 @@ export const LectureTable = () => {
 export const LectureInfo = (props) => {
   const { classID } = props;
   const [tableInfo, setTableInfo] = useState([]);
+  const [attendenceInfo, setAttendenceInfo] = useState([]);
 
   useEffect(() => {
     // Fetch professor information using axios using JSON formatting.
@@ -79,6 +80,15 @@ export const LectureInfo = (props) => {
       try {
         const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/lecture_details', { lecture_id: classID });
         setTableInfo(response.data);  // Access the JSON response
+
+        const attendanceData = response.data.map((info) => {
+          return {
+            student_id: info.student_id,
+            attendance: 'true'
+          };
+        });
+        setAttendenceInfo(attendanceData)
+
       } catch (error) {
         console.error(error);
       }
@@ -86,16 +96,101 @@ export const LectureInfo = (props) => {
     fetchLectureInfo();
   }, []);
 
-  const TableRow = (props) => {
-    const { student_name, student_id, department, attendance } = props;
-    const stat = attendance ? "출석" : "결석";
+  const handleSaveAttendance = async () => {
+    try {
+      const updatedTableInfo = tableInfo.map((student) => {
+        const attendanceInfo = attendenceInfo.find((info) => info.student_id === student.student_id);
+        return {
+          ...student,
+          student_id: attendanceInfo ? attendanceInfo.student_id : student.student_id,
+          attendance: attendanceInfo ? attendanceInfo.attendance : student.attendance
+        };
+      });
+      setTableInfo(updatedTableInfo);
+  
+      const response = await axios.post(
+        process.env.REACT_APP_BACKEND_URL + '/save_attendance',
+        {lecture_id: classID, attendance: attendenceInfo}
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  const TableRow = (props) => {
+    const getAttendanceBadgeColor = (attendance) => {
+      if (attendance === "not-ready") {
+        return "info";
+      } else if (attendance === "true") {
+        return "success";
+      } else if (attendance === "false") {
+        return "danger";
+      } else if (attendance === "late") {
+        return "warning";
+      }
+    };
+
+    const getAttendanceBadgeText = (attendance) => {
+      if (attendance === "not-ready") {
+        return "출석 체크 X";
+      } else if (attendance === "true") {
+        return "출석";
+      } else if (attendance === "false") {
+        return "결석";
+      } else if (attendance === "late") {
+        return "지각";
+      }
+    };
+
+    const { student_name, student_id, department, attendance, missing } = props;
+    const selectedAttendanceObj = attendenceInfo.find((info) => info.student_id === student_id);
+    const [selectedAttendance, setSelectedAttendance] = useState(selectedAttendanceObj ? selectedAttendanceObj.attendance : "true");
+    const attendanceBadgeColor = getAttendanceBadgeColor(attendance);
+    const attendanceBadgeText = getAttendanceBadgeText(attendance);
+    const midAttendanceBadgeColor = missing ? "danger" : "success";
+    const midAttendanceBadgeText = missing ? "중간 출석 X" : "중간 출석 O";
+
+    const handleAttendanceChange = (event, studentId) => {
+      const updatedAttendenceInfo = attendenceInfo.map((student) => {
+        if (student.student_id === studentId) {
+          return {
+            ...student,
+            attendance: event.target.value
+          };
+        }
+        return student;
+      });
+    
+      setAttendenceInfo(updatedAttendenceInfo);
+      setSelectedAttendance(event.target.value);
+    };
+    
     return (
       <tr>
         <th scope="row">{student_name}</th>
         <td>{student_id}</td>
         <td>{department}</td>
-        <td>{stat}</td>
+        <td>
+          <span className={`badge bg-${attendanceBadgeColor} badge-lg font-size-18`}>
+            {attendanceBadgeText}
+          </span>
+        </td>
+        <td>
+          <span className={`badge bg-${midAttendanceBadgeColor} badge-lg font-size-18`}>
+            {midAttendanceBadgeText}
+          </span>
+        </td>
+        <td>
+          <select
+            className="form-select"
+            value={selectedAttendance}
+            onChange={(event) => handleAttendanceChange(event, student_id)}
+          >
+            <option value="true">출석</option>
+            <option value="false">결석</option>
+            <option value="late">지각</option>
+          </select>
+        </td>
       </tr>
     );
   };
@@ -116,12 +211,17 @@ export const LectureInfo = (props) => {
             <th scope="col">학번</th>
             <th scope="col">학과</th>
             <th scope="col">출결</th>
+            <th scope="col">중간 출석</th>
+            <th scope="col">출결 변경</th>
           </tr>
         </thead>
         <tbody>
           {tableInfo.map(pv => <TableRow key={`page-visit-${pv.id}`} {...pv} />)}
         </tbody>
       </Table>
+      <Button variant="primary" onClick={handleSaveAttendance}>
+        출석 저장
+      </Button>
     </Card>
   );
 };
