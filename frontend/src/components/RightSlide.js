@@ -23,6 +23,7 @@ const ButtonsComponent = (props) => {
   return (
     <Row>
       <Col>
+        <br></br>
         <Button variant="primary" className="w-100" onClick={handleClick}>
           중간 출석 QR 생성
         </Button>

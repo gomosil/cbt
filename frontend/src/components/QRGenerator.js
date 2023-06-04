@@ -35,6 +35,7 @@ export const QRGenerator = (props) => {
   const [isTimerRunning, setIsTimerRunning] = useState(true);
   const [remainingTime, setRemainingTime] = useState(60); // 60 seconds = 1 minute
   const [showPopup, setShowPopup] = useState(false);
+  const [tmpUUID, setTmpUUID] = useState('');
   const [redirectToDashboard, setRedirectToDashboard] = useState(false);
   const [cookies] = useCookies(['credentials']);
 
@@ -46,13 +47,15 @@ export const QRGenerator = (props) => {
         const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/generate_qr_code', {
           lecture_id: classID,
           password: cookies.credentials.password,
-          duration: 60
+          duration: 60,
+          base_url: window.location.origin,
         });
 
         if (response.status === 200) {
           const { tmp_uuid } = response.data;
           const imageUrl = `${process.env.REACT_APP_BACKEND_URL}/host_qr_code/${tmp_uuid}`;
           setImageUrl(imageUrl);
+          setTmpUUID(tmp_uuid);
         } else {
           console.log('Failed to generate QR code');
           console.log(response);
@@ -79,13 +82,36 @@ export const QRGenerator = (props) => {
     }
   }, [isTimerRunning, remainingTime]);
 
-  const extendTimer = () => {
-    setRemainingTime((prevTime) => prevTime + 10);
+  const extendTimer = async () => {
+    try {
+      const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/extend_attendance', {
+        tmp_uuid: tmpUUID,
+        admin_password: cookies.credentials.password,
+        duration: 10
+      });
+
+      if (response.status == 200) {
+        setRemainingTime((prevTime) => prevTime + 10);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
-  const stopTimer = () => {
-    setIsTimerRunning(false);
-    setRemainingTime(0);
+  const stopTimer = async () => {
+    try {
+      const response = await axios.post(process.env.REACT_APP_BACKEND_URL + '/stop_attendance', {
+        tmp_uuid: tmpUUID,
+        admin_password: cookies.credentials.password,
+      });
+
+      if (response.status == 200) {
+        setIsTimerRunning(false);
+        setRemainingTime(0);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
   const handleClosePopup = () => {
@@ -101,6 +127,7 @@ export const QRGenerator = (props) => {
             <Card className="qr-code-card">
               <Card.Body className="text-center">
                 <h5>QR 코드를 카메라로 찍으세요!</h5>
+                <h4>{window.location.origin}/student/{tmpUUID}</h4>
                 <div className="timer-counter">{remainingTime}초</div>
                 <img src={imageUrl} alt="QR Code" className="centered-image" />
                 <ButtonsComponent extendTimer={extendTimer} stopTimer={stopTimer} isTimerRunning={isTimerRunning} />
