@@ -56,12 +56,26 @@ class DB:
                 "student_id": student_info["student_id"],
                 "department": student_info["dept"],
                 "attendance": student_info["attendance"],
-                "late": student_info["late"],
                 "missing": student_info["missing"],
             }
 
             total_data.append(data)
         return total_data
+
+    def save_lecture_attendance(self, lecture_id, attendance):
+        lecture = self.db.lectures.find_one({'lecture_id': lecture_id})
+        students = lecture['students']
+        total_data = []
+
+        for attendance_info in attendance:
+            student_info = self.db.students.find_one({'student_id': attendance_info['student_id']})
+            student_info['attendance'] = attendance_info['attendance']
+            self.db.students.update_one({'student_id': attendance_info['student_id']}, {"$set": student_info})
+
+    def mark_lectured(self, lecture_id, professor_id):
+        lecture = self.db.lectures.find_one({'lecture_id': lecture_id})
+        lecture['lectured'] = True
+        self.db.lectures.update_one({'lecture_id': lecture_id}, {"$set": lecture})
 
     def add_qr_code_url(self, lecture_id, tmp_uuid, duration, password):
         data = {
@@ -73,7 +87,6 @@ class DB:
             "is_valid": True,
             "password": password
         }
-
         self.db.attendance_check.insert_one(data)
 
     def get_session_lecture_name(self, lecture_id):
@@ -82,37 +95,57 @@ class DB:
 
     def get_attendance_info(self, tmp_uuid):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
-        current_time = datetime.now()
-        expiration = attendance['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
 
+        current_time = datetime.now()
+        duration = attendance_session['duration']
+        expiration = attendance_session['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
+        is_valid = attendance_session['is_valid']
         if current_time < expiration:  # The attendance is valid
-            pass
+            return {'lecture_name': attendance_session['lecture_name'], 'is_valid': is_valid}
         else:  # If the attendance was expired
             attendance_session['is_valid'] = False  # Make this expired and update it to DB.
-            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
-        return {'lecture_name': attendance_session['lecture_name']}
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, {"$set": attendance_session})
+            return {'lecture_name': attendance_session['lecture_name'], 'is_valid': False}
 
     def stop_attendance(self, tmp_uuid, password):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
-        if str(password) == attendance_session['password']:   # If input password matched,
+        if str(password) == str(attendance_session['password']):   # If input password matched,
             attendance_session['is_valid'] = False  # Expire the attendance session.
-            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, {"$set": attendance_session})
 
     def extend_attendance(self, tmp_uuid, password, duration):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
-        if str(password) == attendance_session['password']:   # If input password matched,
+        if str(password) == str(attendance_session['password']):   # If input password matched,
             attendance_session['duration'] += duration  # Extend the duration by given duration.
-            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, attendance_session)
+            self.db.attendance_check.update_one({'tmp_uuid': tmp_uuid}, {"$set": attendance_session})
 
     def attendence_attend(self, tmp_uuid, student_id):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
         current_time = datetime.now()
-        expiration = attendance['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
+        duration = attendance_session['duration']
+
+        expiration = attendance_session['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
+        student_found = False
+
+        if not attendance_session['is_valid']:
+            raise TimeoutError
 
         if current_time < expiration:  # The attendance session is valid.
-            student = self.db.students.find_one({'student_id': student_id})
-            student['missing'] = False
-            self.db.students.update_one({'student_id': student_id}, student) # Mark user as attending the class.
+            try: 
+                students = self.get_lecture_details(attendance_session['lecture_id'])
+                student_names = [x['student_id'] for x in students]
+                student_found = student_id in student_names
+            except:
+                student_found = False
+
+            if student_found:  # Check if student is actually attending the class.
+                student = self.db.students.find_one({'student_id': student_id})
+                if student['missing'] == False:  # User already performed mid-attendance
+                    raise FileExistsError
+                student['missing'] = False
+                self.db.students.update_one({'student_id': student_id}, {"$set": student}) # Mark user as attending the class.
+            else:
+                raise KeyError
         else:  # If the attendance was expired
             raise TimeoutError
 
