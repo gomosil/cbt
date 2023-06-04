@@ -108,12 +108,30 @@ class DB:
     def attendence_attend(self, tmp_uuid, student_id):
         attendance_session = self.db.attendance_check.find_one({'tmp_uuid': tmp_uuid})
         current_time = datetime.now()
-        expiration = attendance['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
+        duration = attendance_session['duration']
+
+        expiration = attendance_session['starting_time'] + timedelta(seconds=duration)  # Calculate expiration time.
+        student_found = False
+
+        if not attendance_session['is_valid']:
+            raise TimeoutError
 
         if current_time < expiration:  # The attendance session is valid.
-            student = self.db.students.find_one({'student_id': student_id})
-            student['missing'] = False
-            self.db.students.update_one({'student_id': student_id}, student) # Mark user as attending the class.
+            try: 
+                students = self.get_lecture_details(attendance_session['lecture_id'])
+                student_names = [x['student_id'] for x in students]
+                student_found = student_id in student_names
+            except:
+                student_found = False
+
+            if student_found:  # Check if student is actually attending the class.
+                student = self.db.students.find_one({'student_id': student_id})
+                if student['missing'] == False:  # User already performed mid-attendance
+                    raise FileExistsError
+                student['missing'] = False
+                self.db.students.update_one({'student_id': student_id}, {"$set": student}) # Mark user as attending the class.
+            else:
+                raise KeyError
         else:  # If the attendance was expired
             raise TimeoutError
 

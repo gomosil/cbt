@@ -144,8 +144,14 @@ def lecture_attend():
     try:
         db.attendence_attend(tmp_uuid, student_id)
         return Response(status=200)
+    except KeyError:
+        return Response(json.dumps({'message': '수강중인 학생이 아닙니다.'}), status=403)
+    except FileExistsError:
+        return Response(json.dumps({'message': '이미 중간 출석을 완료했습니다.'}), status=403)
+    except TimeoutError:
+        return Response(json.dumps({'message': '중간 출석이 마감되었습니다.'}), status=403)   
     except:
-        return Response(status=403)
+        return Response(json.dumps({'message': '알려지지 않은 에러입니다.'}), status=403)
 
 @app.route('/stop_attendance', methods=['POST'])
 def stop_attendance():

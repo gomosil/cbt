@@ -68,7 +68,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####71',
@@ -76,7 +76,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####99',
@@ -84,7 +84,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
 
     {
@@ -93,7 +93,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####83',
@@ -101,7 +101,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####25',
@@ -109,7 +109,7 @@ student = [
         'dept': '모바일시스템공학과',
          'attendance': 'false',
          'late': 'false',
-         'missing': 'false'
+         'missing': True
     },
     {
          'student_id': '32####39',
@@ -117,7 +117,7 @@ student = [
          'dept': '모바일시스템공학과',
          'attendance': 'false',
          'late': 'false',
-         'missing': 'false'
+         'missing': True
     },
     {
          'student_id': '32####93',
@@ -125,7 +125,7 @@ student = [
          'dept': '모바일시스템공학과',
          'attendance': 'false',
          'late': 'false',
-         'missing': 'false'
+         'missing': True
     },
     {
          'student_id': '32####68',
@@ -133,7 +133,7 @@ student = [
          'dept': '모바일시스템공학과',
          'attendance': 'false',
          'late': 'false',
-         'missing': 'false'
+         'missing': True
      },
     {
         'student_id': '32####23',
@@ -141,7 +141,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####15',
@@ -149,7 +149,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####80',
@@ -157,7 +157,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####68',
@@ -165,7 +165,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
          'student_id': '32####84',
@@ -173,7 +173,7 @@ student = [
          'dept': '모바일시스템공학과',
          'attendance': 'false',
          'late': 'false',
-         'missing': 'false'
+         'missing': True
     },
 
     {
@@ -182,7 +182,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####88',
@@ -190,7 +190,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####67',
@@ -198,7 +198,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####08',
@@ -206,7 +206,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####90',
@@ -214,7 +214,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####42',
@@ -222,7 +222,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####98',
@@ -230,7 +230,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####54',
@@ -238,7 +238,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####30',
@@ -246,7 +246,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####87',
@@ -254,7 +254,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####87',
@@ -262,7 +262,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####06',
@@ -270,7 +270,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####63',
@@ -278,7 +278,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####35',
@@ -286,7 +286,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####12',
@@ -294,7 +294,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####74',
@@ -302,7 +302,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####22',
@@ -310,7 +310,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####94',
@@ -318,7 +318,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####16',
@@ -326,7 +326,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####77',
@@ -334,7 +334,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####77',
@@ -342,7 +342,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####75',
@@ -350,7 +350,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####44',
@@ -358,7 +358,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####42',
@@ -366,7 +366,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     },
     {
         'student_id': '32####16',
@@ -374,7 +374,7 @@ student = [
         'dept': '모바일시스템공학과',
         'attendance': 'false',
         'late': 'false',
-        'missing': 'false'
+        'missing': True
     }
 ]
 
