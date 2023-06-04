@@ -12,27 +12,33 @@ export default () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+    let message = "Unknown";
+    let response = undefined;
     try {
       // Create JSON object with id and password
       const data = {
         name: studentName,
         studentid: studentID,
+        tmp_uuid: window.location.pathname.split("/")[2]
       };
-      const response = await axios.post(
-        "http://172.25.244.37:5001/lecture_attend",
+      response = await axios.post(
+        process.env.REACT_APP_BACKEND_URL + "/lecture_attend",
         data
       );
-
+      message = response.data.message;
+      console.log(message);
+  
       if (response.status === 200) {
         setAlertMessage("중간 출석에 성공했습니다!");
         setAlertVariant("success");
       } else {
-        setAlertMessage("중간 출석에 실패했습니다. 인적사항을 확인해주세요");
+        setAlertMessage("중간 출석에 실패했습니다: " + message);
         setAlertVariant("danger");
       }
     } catch (error) {
-      setAlertMessage("중간 출석에 실패했습니다.");
+      console.log(error.response.data.message);
+      message = error.response.data.message;
+      setAlertMessage("중간 출석에 실패했습니다: " + message);
       setAlertVariant("danger");
     }
   };
