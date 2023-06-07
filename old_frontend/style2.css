@@ -1,0 +1,19 @@
+.extension {
+    position: absolute;
+    left: 494px;
+    top: 714px;
+    background-color: blue;
+    padding: 10px 150px;
+    border: none;
+    color: white;
+}
+
+.deadline {
+    position: absolute;
+    left: 865px;
+    top: 714px;
+    background-color: red;
+    padding: 10px 150px;
+    border: none;
+    color: white;
+}
