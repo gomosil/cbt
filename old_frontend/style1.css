@@ -1,0 +1,92 @@
+.header {
+    height: 90px;
+    margin: 0 auto;
+    color: white;
+    background: blue;
+}
+
+.header h1{
+    float: left;
+    padding-top: 5px;
+    margin-right: 15px;
+}
+
+.header .menu{
+    float: right;
+}
+
+.header .menu li{
+    float: right;
+    margin-left: 90px;
+    line-height: 90px;
+}
+
+.header .menu li a:hover{
+    color: red;
+}
+
+.radio {
+    position: absolute;
+    left: 610px;
+    top: 274px;
+    border: none;
+    letter-spacing: 50px;
+}
+
+.radio2 {
+    position: absolute;
+    left: 610px;
+    top: 494px;
+    border: none;
+    letter-spacing: 50px;
+}
+
+.radio3 {
+    position: absolute;
+    left: 610px;
+    top: 714px;
+    border: none;
+    letter-spacing: 50px;
+}
+
+.radio4 {
+    position: absolute;
+    left: 610px;
+    top: 934px;
+    border: none;
+    letter-spacing: 50px;
+}
+
+.radio5 {
+    position: absolute;
+    left: 610px;
+    top: 1154px;
+    border: none;
+    letter-spacing: 50px;
+}
+
+.radio6 {
+    position: absolute;
+    left: 610px;
+    top: 1374px;
+    border: none;
+    letter-spacing: 50px;
+}
+
+.radio7 {
+    position: absolute;
+    left: 610px;
+    top: 1594px;
+    border: none;
+    letter-spacing: 50px;
+}
+
+.save {
+    position: absolute;
+    left: 92px;
+    top: 1714px;
+    background-color: blue;
+    padding: 10px 730px;
+    border: none;
+    color: white;
+}
