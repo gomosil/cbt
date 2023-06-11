@@ -1,5 +1,6 @@
 # cbt
-고급모바일실험 "출튀 방지" 시스템 관련 레포지토리입니다
+고급모바일실험 "출튀 방지" 시스템 관련 레포지토리입니다.
+
 
 ## 참여자 (가나다순)
 - **32190984 김이수**: PM + CI/CD + Infra + Frontend [@isu-kim](https://github.com/isu-kim)
@@ -7,15 +8,23 @@
 - **32212342 신우재**: Frontend [@swj03](https://github.com/swj03)
 - **32182554 양대한**: Backend [@Yangdaehan](https://github.com/Yangdaehan)
 
-## 규칙
-### 1. main branch commit 금지
-commit은 먼저 본인 branch에다가 한 이후, PR을 한다음 merge 하는 방식으로 진행해주세요
+## 사용 기술
+<p align="center">
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" />  
+  <img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white" /> 
+  <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" /> 
+  <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" />
+  <img src="https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white" />
+  <img src="https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white" />
+</p>
 
-### 2. 버그가 있으면 issues 사용
-버그가 있으면 단톡방 말고 issues 섹션을 통해서 사용해주세요
+- [Frontend](./frontend): ReactJS
+- [Backend](./backend): Flask, MongoDB
+- Infra: Docker, Kubernetes, Nginx
 
-### 3. 프로젝트 todo 및 타임라인 준수
-[projects 페이지](https://github.com/gomosil/cbt/projects)의 일정을 준수해주세요
-
-### 4. 코드 스타일 유지
-코드 스타일을 최대한 비슷하게 유지해주세요.
+## 기타 정보
+- **API 명세**: https://github.com/gomosil/cbt/wiki
+- **설치 방법**: https://github.com/gomosil/cbt/tree/main/kubernetes
+- **버그 제보**: https://github.com/gomosil/cbt/issues
+- **개발 일정**: https://github.com/orgs/gomosil/projects/2/views/2
+- **라이센스**: MIT 라이센스
